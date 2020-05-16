@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Rock, Paper, Scissors</title>
+</head>
+
+<body>
+    <script>
+
+        let playerScore = 0;
+        let compScore = 0;
+        let result;
+        let Round = 0;
+        let pick = ['Rock', 'Paper', 'Scissors'];
+        var Cpu = computerPlay();
+
+
+
+        function computerPlay() {
+            return pick[Math.floor(Math.random() * pick.length)].toLowerCase();
+        }
+
+        function playRound(playerSelection, computerSelection) {
+            if (playerSelection == 'rock' && computerSelection == 'scissors') {
+                result = `${playerSelection} beats ${computerSelection}!`;
+            } else if (playerSelection == 'rock' && computerSelection == 'paper') {
+                result = `${computerSelection} beats ${playerSelection}`;
+            } else if (playerSelection == 'paper' && computerSelection == 'rock') {
+                result = `${playerSelection} beats ${computerSelection}!`;
+            } else if (playerSelection == 'paper' && computerSelection == 'scissors') {
+                result = `${computerSelection} beats ${playerSelection}`;
+            } else if (playerSelection == 'scissors' && computerSelection == 'paper') {
+                result = `${playerSelection} beats ${computerSelection}!`;
+            } else if (playerSelection == 'scissors' && computerSelection == 'rock') {
+                result = `${computerSelection} beats ${playerSelection}`;
+            } else if (playerSelection == computerSelection)
+                result = `${computerSelection} versus ${playerSelection}`;
+
+            return result;
+        };
+
+        function gameResult(string) {
+            if (string.includes('!')) {
+                para2.textContent = 'You scored';
+                para3.textContent = `Round ${++Round}  You: ${++playerScore} | CPU: ${compScore}`;
+            } else if (string.includes('versus')) {
+                para2.textContent = 'Draw!';
+                para3.textContent = `Round ${++Round}  You: ${playerScore} | CPU: ${compScore}`;
+            } else {
+                para2.textContent = 'CPU scored';
+                para3.textContent = `Round ${++Round}  You: ${playerScore} | CPU: ${++compScore}`;
+            }
+        }
+
+        function endResult(number) {
+            if (number == 5 && playerScore > compScore) {
+                confirm('Congratulations! you win, another game?') ?
+                    window.location.reload() : window.close();
+            } else if (number == 5 && playerScore < compScore) {
+                confirm('Computer beats you, want to try again?') ?
+                    window.location.reload() : window.close();
+            } else if (number == 5 && playerScore == compScore) {
+                confirm('Nice game, it\'s a tie... again?') ?
+                    window.location.reload() : window.close();
+            } else;
+        }
+
+
+
+        const para3 = document.createElement('p');
+        para3.textContent;
+        para3.setAttribute('style', 'margin-left: 39%; margin-top: -50px; position:fixed');
+        document.body.append(para3);
+
+        const buttonContainer = document.createElement('div');
+        buttonContainer.setAttribute('id', 'buttonContainer');
+        buttonContainer.setAttribute('style', "margin-left: 38%; margin-top: 300px");
+        document.body.append(buttonContainer);
+
+        const rockButton = document.createElement('button');
+        rockButton.textContent = 'Rock';
+        rockButton.setAttribute('id', 'rockButton');
+        buttonContainer.appendChild(rockButton);
+        rockButton.addEventListener('click', function (rock) {
+            para.textContent = (playRound('rock', computerPlay()));
+            gameResult(para.textContent);
+            endResult(Round);
+        });
+
+        const paperButton = document.createElement('button');
+        paperButton.textContent = 'Paper';
+        paperButton.setAttribute('id', 'paperButton');
+        paperButton.setAttribute('style', "margin-left: 20px");
+        buttonContainer.appendChild(paperButton);
+        paperButton.addEventListener('click', function (paper) {
+            para.textContent = (playRound('paper', computerPlay()));
+            gameResult(para.textContent);
+            endResult(Round);
+        });
+
+        const scissorsButton = document.createElement('button');
+        scissorsButton.textContent = 'Scissors';
+        scissorsButton.setAttribute('id', 'scissorsButton');
+        scissorsButton.setAttribute('style', "margin-left: 20px");
+        buttonContainer.appendChild(scissorsButton);
+        scissorsButton.addEventListener('click', function (scissors) {
+            para.textContent = (playRound('scissors', computerPlay()));
+            gameResult(para.textContent);
+            endResult(Round);
+        });
+
+        const para = document.createElement('p');
+        para.textContent;
+        para.setAttribute('style', 'margin-left: 39.4%; margin-top: px; position: fixed');
+        document.body.append(para);
+
+        const para2 = document.createElement('p');
+        para2.textContent;
+        para2.setAttribute('style', 'margin-left: 42%; margin-top: 100px; position: fixed');
+        document.body.append(para2);
+
+
+    </script>
+</body>
+
+</html>
